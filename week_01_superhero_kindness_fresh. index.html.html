@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaron's Super Bible Adventure - Kindness Hero</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b6b 100%);
+            min-height: 100vh;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .hero-title {
+            font-family: 'Bangers', cursive;
+            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            animation: heroGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes heroGlow {
+            from { text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 0 0 20px #ffd700; }
+            to { text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 0 0 30px #ffd700, 0 0 40px #ffd700; }
+        }
+        
+        .hero-shield {
+            background: linear-gradient(145deg, #ffd700, #ffed4e);
+            border: 4px solid #dc2626;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero-button {
+            background: linear-gradient(145deg, #dc2626, #b91c1c);
+            border: 3px solid #ffd700;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 16px 24px;
+            border-radius: 15px;
+            min-height: 60px;
+            min-width: 120px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+        
+        .hero-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 10px rgba(220, 38, 38, 0.6);
+        }
+        
+        .hero-button:disabled {
+            background: linear-gradient(145deg, #6b7280, #4b5563);
+            border-color: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .minecraft-block {
+            background: linear-gradient(145deg, #4ade80, #22c55e);
+            border: 2px solid #166534;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        
+        .minecraft-block:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+        }
+        
+        .pokemon-evolution {
+            animation: evolve 1s ease-in-out;
+        }
+        
+        @keyframes evolve {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1); }
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #ffd700 0%, #ff6b6b 100%);
+            height: 20px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .avatar-option {
+            width: 100px;
+            height: 100px;
+            border: 4px solid transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .avatar-option:hover {
+            border-color: #ffd700;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+        
+        .avatar-option.selected {
+            border-color: #dc2626;
+            box-shadow: 0 0 25px rgba(220, 38, 38, 0.8);
+        }
+        
+        .quiz-timer {
+            background: linear-gradient(145deg, #ff6b6b, #dc2626);
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #ffd700;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+        
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .confetti {
+            position: absolute;
+            animation: confetti-fall 3s linear;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .comic-bubble {
+            background: white;
+            border: 4px solid #000;
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            margin: 20px;
+            box-shadow: 5px 5px 0px #000;
+        }
+        
+        .comic-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid white;
+        }
+        
+        .comic-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -24px;
+            left: 26px;
+            width: 0;
+            height: 0;
+            border-left: 24px solid transparent;
+            border-right: 24px solid transparent;
+            border-top: 24px solid #000;
+        }
+        
+        .badge-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .badge-earned {
+            animation: badgeEarn 1s ease-in-out;
+        }
+        
+        @keyframes badgeEarn {
+            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        
+        .draggable {
+            cursor: grab;
+            user-select: none;
+        }
+        
+        .draggable:active {
+            cursor: grabbing;
+        }
+        
+        .drop-zone {
+            border: 3px dashed #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+            min-height: 100px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ffd700;
+            transition: all 0.3s ease;
+        }
+        
+        .drop-zone.drag-over {
+            background: rgba(255, 215, 0, 0.3);
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+        
+        .drop-zone.correct {
+            background: rgba(34, 197, 94, 0.3);
+            border-color: #22c55e;
+            color: #166534;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .minecraft-block {
+                width: 70px;
+                height: 70px;
+                font-size: 0.8rem;
+            }
+            
+            .avatar-option {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section id="sunday-lesson" class="min-h-screen p-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header with Progress Bar -->
+            <div class="text-center mb-8">
+                <div class="mb-4">
+                    <div class="bg-gray-800 rounded-full p-2 inline-block">
+                        <div id="progressBar" class="progress-bar w-0 rounded-full transition-all duration-1000">
+                            <div class="text-center text-white font-bold leading-5">Level 1: Kindness Hero Training</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-shield w-32 h-32 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-heart text-6xl text-red-600"></i>
+                </div>
+                
+                <h1 class="hero-title text-6xl text-yellow-300 mb-4">BECOME A KINDNESS HERO!</h1>
+                <p class="text-2xl text-white font-bold">Aaron's Super Bible Adventure</p>
+            </div>
+
+            <!-- Avatar Selection -->
+            <div id="avatarSection" class="comic-bubble mb-8">
+                <h2 class="text-3xl font-bold text-center mb-6">Choose Your Hero Avatar!</h2>
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-4 justify-items-center">
+                    <div class="avatar-option" data-avatar="captain" style="background: linear-gradient(45deg, #dc2626, #ffd700); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-shield-alt text-4xl text-white"></i>
+                    </div>
+                    <div class="avatar-option" data-avatar="thunder" style="background: linear-gradient(45deg, #3b82f6, #ffd700); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-bolt text-4xl text-white"></i>
+                    </div>
+                    <div class="avatar-option" data-avatar="heart" style="background: linear-gradient(45deg, #ef4444, #fbbf24); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-heart text-4xl text-white"></i>
+                    </div>
+                    <div class="avatar-option" data-avatar="pikachu" style="background: linear-gradient(45deg, #fbbf24, #f59e0b); display: flex; align-items: center; justify-content: center;">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <div class="avatar-option" data-avatar="charizard" style="background: linear-gradient(45deg, #ea580c, #dc2626); display: flex; align-items: center; justify-content: center;">
+                        <span class="text-2xl">🔥</span>
+                    </div>
+                    <div class="avatar-option" data-avatar="minecraft" style="background: linear-gradient(45deg, #22c55e, #16a34a); display: flex; align-items: center; justify-content: center;">
+                        <span class="text-2xl">⛏️</span>
+                    </div>
+                </div>
+                <button id="startAdventure" class="hero-button mx-auto mt-6 block" disabled>
+                    <i class="fas fa-rocket mr-2"></i>START YOUR HERO TRAINING!
+                </button>
+            </div>
+
+            <!-- Main Content (Initially Hidden) -->
+            <div id="mainContent" class="hidden">
+                <!-- Bible Verses -->
+                <div class="comic-bubble mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-6 flex items-center justify-center">
+                        <i class="fas fa-book text-blue-600 mr-3"></i>
+                        Your Hero Training Manual (God's Word)
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-r from-blue-100 to-blue-200 p-6 rounded-lg border-l-8 border-blue-600">
+                            <h3 class="font-bold text-xl mb-2">Luke 6:31 (KJV)</h3>
+                            <p class="text-lg italic">"And as ye would that men should do to you, do ye also to them likewise."</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-red-100 to-red-200 p-6 rounded-lg border-l-8 border-red-600">
+                            <h3 class="font-bold text-xl mb-2">Ephesians 4:32 (KJV)</h3>
+                            <p class="text-lg italic">"And be ye kind one to another, tenderhearted, forgiving one another, even as God for Christ's sake hath forgiven you."</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-green-100 to-green-200 p-6 rounded-lg border-l-8 border-green-600">
+                            <h3 class="font-bold text-xl mb-2">Proverbs 11:17 (KJV)</h3>
+                            <p class="text-lg italic">"The merciful man doeth good to his own soul: but he that is cruel troubleth his own flesh."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-yellow-100 border-2 border-yellow-400 rounded-lg">
+                        <p class="text-center font-bold text-yellow-800">
+                            <i class="fas fa-lightbulb mr-2"></i>
+                            Read the full passages in your Bible to see the complete context!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Hero Explanation -->
+                <div class="comic-bubble mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-6 flex items-center justify-center">
+                        <i class="fas fa-mask text-red-600 mr-3"></i>
+                        Your Kindness Superpowers!
+                    </h2>
+                    
+                    <div class="text-lg space-y-4">
+                        <p class="text-center text-2xl font-bold text-red-600">Every superhero has a special power. Your superpower is KINDNESS! 💪</p>
+                        
+                        <div class="grid md:grid-cols-3 gap-6 mt-6">
+                            <div class="text-center p-4 bg-gradient-to-b from-red-400 to-red-600 text-white rounded-lg">
+                                <i class="fas fa-hands-helping text-4xl mb-3"></i>
+                                <h3 class="font-bold mb-2">Helper Hero</h3>
+                                <p>Just like Spider-Man helps people, you can help your classmates and friends!</p>
+                            </div>
+                            
+                            <div class="text-center p-4 bg-gradient-to-b from-yellow-400 to-yellow-600 text-white rounded-lg">
+                                <i class="fas fa-share text-4xl mb-3"></i>
+                                <h3 class="font-bold mb-2">Sharing Superstar</h3>
+                                <p>Like sharing power-ups in Minecraft, share your snacks and toys with others!</p>
+                            </div>
+                            
+                            <div class="text-center p-4 bg-gradient-to-b from-blue-400 to-blue-600 text-white rounded-lg">
+                                <i class="fas fa-comments text-4xl mb-3"></i>
+                                <h3 class="font-bold mb-2">Word Warrior</h3>
+                                <p>Like Pokémon trainers encourage their Pokémon, use kind words to encourage others!</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-center text-xl font-bold text-blue-800 mt-6">
+                            When you're kind, you're following Jesus's example - the ultimate hero! 🌟
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Hero Prayer -->
+                <div class="comic-bubble mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-6 flex items-center justify-center">
+                        <i class="fas fa-praying-hands text-purple-600 mr-3"></i>
+                        The Kindness Hero Oath
+                    </h2>
+                    
+                    <div class="bg-gradient-to-r from-purple-400 to-purple-600 text-white p-8 rounded-lg text-center">
+                        <p class="text-xl leading-relaxed italic">
+                            "Dear God, You are the Ultimate Hero! <br>
+                            Please help me use my kindness superpowers every day. <br>
+                            Help me be like Jesus and show love to everyone I meet. <br>
+                            Give me strength to be kind even when it's hard. <br>
+                            Thank You for making me Your special hero. <br>
+                            In Jesus' name, Amen! 🙏"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Reflection Questions -->
+                <div class="comic-bubble mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-6 flex items-center justify-center">
+                        <i class="fas fa-thought-bubble text-green-600 mr-3"></i>
+                        Hero Training Questions
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-gradient-to-r from-green-100 to-green-200 p-6 rounded-lg border-l-8 border-green-600">
+                            <h3 class="font-bold text-xl mb-2">🏫 Mission 1:</h3>
+                            <p class="text-lg">What kindness "superpower" can you use at school this week?</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-blue-100 to-blue-200 p-6 rounded-lg border-l-8 border-blue-600">
+                            <h3 class="font-bold text-xl mb-2">😢 Mission 2:</h3>
+                            <p class="text-lg">How can you be a "Kindness Hero" when someone is sad?</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-red-100 to-red-200 p-6 rounded-lg border-l-8 border-red-600">
+                            <h3 class="font-bold text-xl mb-2">✝️ Mission 3:</h3>
+                            <p class="text-lg">What would Jesus the Ultimate Hero do in a tough situation?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Section -->
+                <div class="comic-bubble mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-6 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-yellow-600 mr-3"></i>
+                        Hero Training Quiz
+                    </h2>
+                    
+                    <div id="quizContainer">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="quiz-timer" id="timerDisplay">60</div>
+                            <div class="text-2xl font-bold">
+                                Question <span id="questionNumber">1</span> of 10
+                            </div>
+                            <div class="text-2xl font-bold text-yellow-600">
+                                Score: <span id="quizScore">0</span>
+                            </div>
+                        </div>
+                        
+                        <div id="questionContainer" class="mb-6">
+                            <!-- Questions will be inserted here -->
+                        </div>
+                        
+                        <button id="startQuiz" class="hero-button mx-auto block">
+                            <i class="fas fa-play mr-2"></i>START HERO TRAINING QUIZ!
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Drag and Drop Game -->
+                <div class="comic-bubble mb-8">
+                    <h2 class="text-3xl font-bold text-center mb-6 flex items-center justify-center">
+                        <i class="fas fa-puzzle-piece text-purple-600 mr-3"></i>
+                        Kindness Mission Game
+                    </h2>
+                    
+                    <p class="text-center text-xl mb-6">Drag the kind actions to match them with the Bible verses!</p>
+                    
+                    <div id="dragDropGame">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-4 text-center">Kind Actions</h3>
+                                <div id="draggableItems" class="space-y-4">
+                                    <!-- Draggable items will be inserted here -->
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-2xl font-bold mb-4 text-center">Bible Verses</h3>
+                                <div id="dropZones" class="space-y-4">
+                                    <!-- Drop zones will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-6">
+                            <button id="resetGame" class="hero-button">
+                                <i class="fas fa-redo mr-2"></i>RESET MISSION
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badge Display -->
+                <div class="comic-bubble mb-8 text-center">
+                    <h2 class="text-3xl font-bold mb-6 flex items-center justify-center">
+                        <i class="fas fa-medal text-yellow-600 mr-3"></i>
+                        Your Hero Achievements
+                    </h2>
+                    
+                    <div class="badge-container">
+                        <div id="kindnessBadge" class="hero-shield w-32 h-32 mx-auto flex items-center justify-center opacity-50">
+                            <i class="fas fa-award text-6xl text-yellow-500"></i>
+                        </div>
+                        <p class="text-xl font-bold mt-4">Kindness Hero Badge</p>
+                        <p id="badgeStatus" class="text-gray-600">Complete all activities to earn this badge!</p>
+                    </div>
+                </div>
+
+                <!-- Family Share -->
+                <div class="comic-bubble text-center">
+                    <h2 class="text-3xl font-bold mb-6 flex items-center justify-center">
+                        <i class="fas fa-share text-blue-600 mr-3"></i>
+                        Share Your Hero Achievement
+                    </h2>
+                    
+                    <button id="shareButton" class="hero-button" disabled>
+                        <i class="fas fa-envelope mr-2"></i>EMAIL MY PROGRESS TO FAMILY
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Confetti Container -->
+        <div class="confetti-container" id="confettiContainer"></div>
+        
+        <!-- Success Modal -->
+        <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white p-8 rounded-lg max-w-md mx-4 text-center">
+                <div class="hero-shield w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-trophy text-4xl text-yellow-500"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-red-600 mb-4">AMAZING, AARON!</h2>
+                <p class="text-xl mb-6">You've unlocked your Kindness Superpowers! You're officially a Kindness Hero! Great job, Son!</p>
+                <button id="closeModal" class="hero-button">
+                    <i class="fas fa-check mr-2"></i>AWESOME!
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Game State
+        let gameState = {
+            selectedAvatar: null,
+            quizScore: 0,
+            currentQuestion: 0,
+            quizCompleted: false,
+            gameCompleted: false,
+            timer: null,
+            timeLeft: 60
+        };
+
+        // Quiz Questions
+        const quizQuestions = [
+            {
+                question: "According to Luke 6:31, how should we treat others?",
+                options: ["The way we want to be treated", "Only if they're nice to us", "Better than ourselves", "The same as our enemies"],
+                correct: 0
+            },
+            {
+                question: "What superpower does every hero have according to our lesson?",
+                options: ["Flying", "Super strength", "Kindness", "Invisibility"],
+                correct: 2
+            },
+            {
+                question: "Who is the Ultimate Hero we should follow?",
+                options: ["Superman", "Spider-Man", "Jesus", "Batman"],
+                correct: 2
+            },
+            {
+                question: "In Ephesians 4:32, what are we told to be?",
+                options: ["Strong and brave", "Kind and tenderhearted", "Fast and powerful", "Smart and clever"],
+                correct: 1
+            },
+            {
+                question: "How can you be like a Pokémon trainer?",
+                options: ["Catch wild animals", "Use kind words to encourage others", "Battle other trainers", "Collect badges"],
+                correct: 1
+            },
+            {
+                question: "What happens when we share like in Minecraft?",
+                options: ["We lose our items", "Others get power-ups and feel good", "The game ends", "We get in trouble"],
+                correct: 1
+            },
+            {
+                question: "According to Proverbs 11:17, being merciful (kind) helps:",
+                options: ["Only other people", "Your own soul", "Your parents", "Your teachers"],
+                correct: 1
+            },
+            {
+                question: "When someone is mean to you, what should a Kindness Hero do?",
+                options: ["Be mean back", "Tell everyone about it", "Still be kind", "Ignore them forever"],
+                correct: 2
+            },
+            {
+                question: "What makes God happy according to our lesson?",
+                options: ["When we win games", "When we treat others kindly", "When we get good grades", "When we clean our room"],
+                correct: 1
+            },
+            {
+                question: "Complete this Bible verse: 'And be ye kind one to another...'",
+                options: ["...and have fun together", "...tenderhearted, forgiving one another", "...when you feel like it", "...on Sundays only"],
+                correct: 1
+            }
+        ];
+
+        // Drag and Drop Game Data
+        const gameItems = [
+            { id: 1, action: "Helping a friend with homework", verse: "Luke 6:31" },
+            { id: 2, action: "Sharing your lunch with someone", verse: "Ephesians 4:32" },
+            { id: 3, action: "Saying sorry when you hurt someone", verse: "Ephesians 4:32" },
+            { id: 4, action: "Being nice even when someone is mean", verse: "Proverbs 11:17" }
+        ];
+
+        // Initialize the game
+        document.addEventListener('DOMContentLoaded', function() {
+            setupAvatarSelection();
+            setupQuiz();
+            setupDragDropGame();
+            setupEventListeners();
+        });
+
+        // Avatar Selection
+        function setupAvatarSelection() {
+            const avatarOptions = document.querySelectorAll('.avatar-option');
+            const startButton = document.getElementById('startAdventure');
+
+            avatarOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove previous selection
+                    avatarOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Select current avatar
+                    this.classList.add('selected');
+                    gameState.selectedAvatar = this.dataset.avatar;
+                    
+                    // Enable start button
+                    startButton.disabled = false;
+                    
+                    // Play selection sound (visual feedback)
+                    this.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.1)';
+                    }, 200);
+                });
+            });
+
+            startButton.addEventListener('click', function() {
+                document.getElementById('avatarSection').style.display = 'none';
+                document.getElementById('mainContent').classList.remove('hidden');
+                updateProgress(25);
+            });
+        }
+
+        // Quiz Setup
+        function setupQuiz() {
+            const startQuizBtn = document.getElementById('startQuiz');
+            startQuizBtn.addEventListener('click', startQuiz);
+        }
+
+        function startQuiz() {
+            document.getElementById('startQuiz').style.display = 'none';
+            gameState.currentQuestion = 0;
+            gameState.quizScore = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (gameState.currentQuestion >= quizQuestions.length) {
+                completeQuiz();
+                return;
+            }
+
+            const question = quizQuestions[gameState.currentQuestion];
+            const container = document.getElementById('questionContainer');
+            
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg border-4 border-blue-600">
+                    <h3 class="text-2xl font-bold mb-6">${question.question}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${question.options.map((option, index) => `
+                            <button class="hero-button text-left" onclick="selectAnswer(${index})">
+                                ${String.fromCharCode(65 + index)}. ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Update question number
+            document.getElementById('questionNumber').textContent = gameState.currentQuestion + 1;
+            
+            // Start timer
+            startTimer();
+        }
+
+        function startTimer() {
+            gameState.timeLeft = 60;
+            const timerDisplay = document.getElementById('timerDisplay');
+            
+            gameState.timer = setInterval(() => {
+                gameState.timeLeft--;
+                timerDisplay.textContent = gameState.timeLeft;
+                
+                if (gameState.timeLeft <= 0) {
+                    clearInterval(gameState.timer);
+                    selectAnswer(-1); // Auto-advance on timeout
+                }
+            }, 1000);
+        }
+
+        function selectAnswer(selectedIndex) {
+            clearInterval(gameState.timer);
+            
+            const question = quizQuestions[gameState.currentQuestion];
+            const isCorrect = selectedIndex === question.correct;
+            
+            if (isCorrect) {
+                gameState.quizScore++;
+                showFeedback("Correct! Great job, Hero! 🎉", "success");
+            } else {
+                showFeedback("Good try! The correct answer was: " + question.options[question.correct], "info");
+            }
+            
+            // Update score display
+            document.getElementById('quizScore').textContent = gameState.quizScore;
+            
+            // Move to next question after feedback
+            setTimeout(() => {
+                gameState.currentQuestion++;
+                showQuestion();
+            }, 2000);
+        }
+
+        function completeQuiz() {
+            gameState.quizCompleted = true;
+            const container = document.getElementById('questionContainer');
+            
+            container.innerHTML = `
+                <div class="bg-gradient-to-r from-green-400 to-green-600 text-white p-8 rounded-lg text-center">
+                    <i class="fas fa-trophy text-6xl mb-4"></i>
+                    <h3 class="text-3xl font-bold mb-4">Quiz Complete!</h3>
+                    <p class="text-2xl mb-4">You scored ${gameState.quizScore} out of ${quizQuestions.length}!</p>
+                    <p class="text-xl">You're becoming a true Kindness Hero! 🦸‍♂️</p>
+                </div>
+            `;
+            
+            updateProgress(75);
+            checkCompletion();
+        }
+
+        // Drag and Drop Game
+        function setupDragDropGame() {
+            createDraggableItems();
+            createDropZones();
+            document.getElementById('resetGame').addEventListener('click', resetDragDropGame);
+        }
+
+        function createDraggableItems() {
+            const container = document.getElementById('draggableItems');
+            container.innerHTML = gameItems.map(item => `
+                <div class="minecraft-block draggable" draggable="true" data-id="${item.id}">
+                    ${item.action}
+                </div>
+            `).join('');
+
+            // Add drag event listeners
+            container.querySelectorAll('.draggable').forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+        }
+
+        function createDropZones() {
+            const verses = [...new Set(gameItems.map(item => item.verse))];
+            const container = document.getElementById('dropZones');
+            
+            container.innerHTML = verses.map(verse => `
+                <div class="drop-zone" data-verse="${verse}">
+                    Drop actions for: ${verse}
+                    <div class="matches mt-2" data-verse="${verse}"></div>
+                </div>
+            `).join('');
+
+            // Add drop event listeners
+            container.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('drop', handleDrop);
+                zone.addEventListener('dragenter', handleDragEnter);
+                zone.addEventListener('dragleave', handleDragLeave);
+            });
+        }
+
+        function handleDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.id);
+            e.target.style.opacity = '0.5';
+        }
+
+        function handleDragEnd(e) {
+            e.target.style.opacity = '1';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        function handleDragEnter(e) {
+            e.preventDefault();
+            e.target.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.target.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.target.classList.remove('drag-over');
+            
+            const itemId = parseInt(e.dataTransfer.getData('text/plain'));
+            const targetVerse = e.target.dataset.verse;
+            const item = gameItems.find(i => i.id === itemId);
+            
+            if (item && item.verse === targetVerse) {
+                // Correct match
+                const draggedElement = document.querySelector(`[data-id="${itemId}"]`);
+                const matchesContainer = document.querySelector(`.matches[data-verse="${targetVerse}"]`);
+                
+                // Move item to matches container
+                draggedElement.classList.remove('draggable');
+                draggedElement.draggable = false;
+                draggedElement.classList.add('pokemon-evolution');
+                draggedElement.style.background = 'linear-gradient(145deg, #22c55e, #16a34a)';
+                
+                matchesContainer.appendChild(draggedElement);
+                e.target.classList.add('correct');
+                
+                showFeedback("Perfect match! 🎯", "success");
+                
+                // Check if game is complete
+                if (document.querySelectorAll('.draggable').length === 0) {
+                    completeGame();
+                }
+            } else {
+                showFeedback("Try again! That doesn't match. 🤔", "info");
+            }
+        }
+
+        function resetDragDropGame() {
+            createDraggableItems();
+            createDropZones();
+        }
+
+        function completeGame() {
+            gameState.gameCompleted = true;
+            showFeedback("Amazing! You've completed the Kindness Mission! 🏆", "success");
+            updateProgress(100);
+            checkCompletion();
+        }
+
+        // Progress and Completion
+        function updateProgress(percentage) {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            
+            if (percentage === 100) {
+                progressBar.innerHTML = '<div class="text-center text-white font-bold leading-5">🏆 KINDNESS HERO ACHIEVED! 🏆</div>';
+            }
+        }
+
+        function checkCompletion() {
+            if (gameState.quizCompleted && gameState.gameCompleted) {
+                // Award badge
+                const badge = document.getElementById('kindnessBadge');
+                badge.style.opacity = '1';
+                badge.classList.add('badge-earned');
+                
+                document.getElementById('badgeStatus').textContent = "EARNED! You're a Kindness Hero!";
+                document.getElementById('badgeStatus').className = "text-green-600 font-bold";
+                
+                // Enable share button
+                document.getElementById('shareButton').disabled = false;
+                
+                // Show success modal with confetti
+                setTimeout(() => {
+                    showConfetti();
+                    document.getElementById('successModal').classList.remove('hidden');
+                }, 1000);
+            }
+        }
+
+        // Visual Effects
+        function showConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffd93d', '#6bcf7f', '#4d96ff', '#ff9f43'];
+            const shapes = ['🎉', '🎊', '⭐', '💖', '🏆', '🦸‍♂️'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                confetti.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    container.removeChild(confetti);
+                }, 4000);
+            }
+        }
+
+        function showFeedback(message, type) {
+            const feedback = document.createElement('div');
+            feedback.className = `fixed top-4 right-4 p-4 rounded-lg z-50 transition-all duration-300 transform translate-x-full`;
+            
+            if (type === 'success') {
+                feedback.className += ' bg-green-500 text-white';
+            } else {
+                feedback.className += ' bg-blue-500 text-white';
+            }
+            
+            feedback.innerHTML = `<div class="font-bold">${message}</div>`;
+            document.body.appendChild(feedback);
+            
+            // Animate in
+            setTimeout(() => {
+                feedback.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Animate out
+            setTimeout(() => {
+                feedback.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(feedback);
+                }, 300);
+            }, 3000);
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('successModal').classList.add('hidden');
+            });
+            
+            document.getElementById('shareButton').addEventListener('click', function() {
+                const subject = "Aaron's Bible Lesson Achievement!";
+                const body = `Aaron has completed his Kindness Hero training!
+                
+Score: ${gameState.quizScore}/${quizQuestions.length} on the quiz
+Game: Completed the Kindness Mission
+Badge: Kindness Hero EARNED!
+Avatar: ${gameState.selectedAvatar}
+
+Aaron is learning to be kind like Jesus and is becoming a true Kindness Hero!
+
+Great job, Son! We're so proud of you! 🏆🦸‍♂️❤️`;
+                
+                const mailtoLink = `mailto:parent@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoLink;
+                
+                showFeedback("Achievement shared with family! 💌", "success");
+            });
+        }
+
+        // Touch event optimizations for iPad
+        document.addEventListener('touchstart', function(e) {
+            // Prevent default touch behaviors that might interfere
+        });
+
+        // Prevent zoom on double tap
+        document.addEventListener('touchend', function(e) {
+            if (e.target.tagName === 'BUTTON' || e.target.classList.contains('hero-button')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"968e8077acb6ec6f","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhz%2BQd8QFHJhd%2FsW0rA0x%2Bq6ZiARGYHhOiv5JkhDENa%2Fe%2B2lfZRpDKB1V8MA8qiSdQ5rKGanfEtzmJohus5N6DWFzRQT4ERZ3vgAq20an9zouUpsNuuuvsk8Zj1l8NG28XhZWqZZ5nZQVUKy8QH%2BZqqIrxkoCwLOQRpCOnUhsi9C3di7gupPnoaEVFr8cRR8UKQiLuFB06ayMHhsIuvoi4J9%2BqpBiKJF9hoHkCzTHwZm0FemG7Fsd%2BsDqigtz0u3B%2F%2FaMqaqNNMkGr7VQ0BuFbmdqOyYym%2F27M9y%2BVKIzR%2FgyDowNcrYHUJ1ZDR5ZQ607WZYAssHNPM5X4wCAJchKPLAyPOp324lvoQUQN2up86Hti1X7Cr%2BbJxuz73g%2BfHkcB7zlPuj3ShsINQwHnH72pL6QDBEO2r2lOhwAk%2BOFiZFAB4bcVP4sRvJ0%2BgZIN%2Bi%2FluVLJLu8shObDbYcbdHj3C5DYbAIQRFmOp0Y0i5CHlMATK9iFTUWsxoxtPzoSk7kJ5onnY8PKeRZ9OKCtj3I%2FA%3D";
+        window.__genspark_locale = "en-US";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhz+Qd8QFHJhd/sW0rA0x+q6ZiARGYHhOiv5JkhDENa/e+2lfZRpDKB1V8MA8qiSdQ5rKGanfEtzmJohus5N6DWFzRQT4ERZ3vgAq20an9zouUpsNuuuvsk8Zj1l8NG28XhZWqZZ5nZQVUKy8QH+ZqqIrxkoCwLOQRpCOnUhsi9C3di7gupPnoaEVFr8cRR8UKQiLuFB06ayMHhsIuvoi4J9+qpBiKJF9hoHkCzTHwZm0FemG7Fsd+sDqigtz0u3B//aMqaqNNMkGr7VQ0BuFbmdqOyYym/27M9y+VKIzR/gyDowNcrYHUJ1ZDR5ZQ607WZYAssHNPM5X4wCAJchKPLAyPOp324lvoQUQN2up86Hti1X7Cr+bJxuz73g+fHkcB7zlPuj3ShsINQwHnH72pL6QDBEO2r2lOhwAk+OFiZFAB4bcVP4sRvJ0+gZIN+i/luVLJLu8shObDbYcbdHj3C5DYbAIQRFmOp0Y0i5CHlMATK9iFTUWsxoxtPzoSk7kJ5onnY8PKeRZ9OKCtj3I/A=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
